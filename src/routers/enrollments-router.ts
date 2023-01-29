@@ -12,3 +12,4 @@ enrollmentsRouter
   .post("/", validateBody(createEnrollmentSchema), postCreateOrUpdateEnrollment);
 
 export { enrollmentsRouter };
+
