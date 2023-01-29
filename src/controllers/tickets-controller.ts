@@ -19,7 +19,7 @@ export async function tickets(req: AuthenticatedRequest, res: Response) {
   const { userId } = req;
 
   try {
-    const ticketTypes = await ticketsTypeService.ticketsUserId(userId);
+    const ticketTypes = await ticketsTypeService.getTicketByUserId(userId);
 
     return res.status(httpStatus.OK).send(ticketTypes);
   } catch (error) {
@@ -37,7 +37,7 @@ export async function ticketsCreate(req: AuthenticatedRequest, res: Response) {
   }
 
   try {
-    const ticketTypes = await ticketsTypeService.ticketsCreate(userId, ticketTypeId);
+    const ticketTypes = await ticketsTypeService.createTicket(userId, ticketTypeId);
 
     return res.status(httpStatus.CREATED).send(ticketTypes);
   } catch (error) {
