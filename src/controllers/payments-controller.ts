@@ -3,7 +3,7 @@ import paymentService from "@/services/payments-service";
 import { Response } from "express";
 import httpStatus from "http-status";
 
-export async function getPaymentByTicketId(req: AuthenticatedRequest, res: Response) {
+export async function getPaymentByTicket(req: AuthenticatedRequest, res: Response) {
   try {
     const ticketId = Number(req.query.ticketId);
     const { userId } = req;
@@ -11,7 +11,7 @@ export async function getPaymentByTicketId(req: AuthenticatedRequest, res: Respo
     if (!ticketId) {
       return res.sendStatus(httpStatus.BAD_REQUEST);
     }
-    const payment = await paymentService.getPaymentByTicketId(userId, ticketId);
+    const payment = await paymentService.getPaymentByTicket(userId, ticketId);
 
     if (!payment) {
       return res.sendStatus(httpStatus.NOT_FOUND);
@@ -25,7 +25,7 @@ export async function getPaymentByTicketId(req: AuthenticatedRequest, res: Respo
   }
 }
 
-export async function paymentProcess(req: AuthenticatedRequest, res: Response) {
+export async function paymentCreate(req: AuthenticatedRequest, res: Response) {
   try {
     const { userId } = req;
     const {
@@ -36,7 +36,7 @@ export async function paymentProcess(req: AuthenticatedRequest, res: Response) {
     if (!ticketId || !cardData) {
       return res.sendStatus(httpStatus.BAD_REQUEST);
     }
-    const payment = await paymentService.paymentProcess(ticketId, userId, cardData);
+    const payment = await paymentService.paymentCreate(ticketId, userId, cardData);
 
     if (!payment) {
       return res.sendStatus(httpStatus.NOT_FOUND);

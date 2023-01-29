@@ -16,7 +16,7 @@ async function verifyTicketAndEnrollment(ticketId: number, userId: number) {
   }
 }
 
-async function getPaymentByTicketId(userId: number, ticketId: number) {
+async function getPaymentByTicket(userId: number, ticketId: number) {
   await verifyTicketAndEnrollment(ticketId, userId);
 
   const payment = await paymentRepository.findPaymentByTicketId(ticketId);
@@ -27,7 +27,7 @@ async function getPaymentByTicketId(userId: number, ticketId: number) {
   return payment;
 }
 
-async function paymentProcess(ticketId: number, userId: number, cardData: CardPaymentParams) {
+async function paymentCreate(ticketId: number, userId: number, cardData: CardPaymentParams) {
   await verifyTicketAndEnrollment(ticketId, userId);
 
   const ticket = await ticketRepository.findTickeWithTypeById(ticketId);
@@ -55,8 +55,8 @@ export type CardPaymentParams = {
 }
 
 const paymentService = {
-  getPaymentByTicketId,
-  paymentProcess,
+  getPaymentByTicket,
+  paymentCreate,
 };
 
 export default paymentService;
